@@ -1,4 +1,11 @@
 ## Instructions
+#### Requirements
++ Python 3.5+
++ Selenium
++ BeautifulSoup
++ Phanomjs http://phantomjs.org/download.html
++ <a href="https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/">Official Bash for Windows beta version (Optional)</a>
++ csvkit for bash
 
 ### Download Data
 >Ride data: https://s3.amazonaws.com/tripdata/index.html has multiple data sets from 2013 to present<br>
