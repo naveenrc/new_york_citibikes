@@ -1,6 +1,5 @@
-<snippet>
-  <content><![CDATA[
-# ${1:New York citi bike}
+# New York citi bike
+
 ## Requirements
 + Python 3.5+
 + Selenium
@@ -56,6 +55,3 @@ $csvcut -c 4 filename.csv | csvstat
 ```Shell
 $csvcut -c 3,4,5 filename.csv > output_file.csv
 ```
-]]></content>
-  <tabTrigger>readme</tabTrigger>
-</snippet>
