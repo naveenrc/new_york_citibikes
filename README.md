@@ -26,3 +26,12 @@ Google maps distance matrix API is used to compare transit times for rides, Goog
 + The dictionary is saved to a json file and used while running download.py repeatedly to avoid downloading files that are already downloaded before
 
 + To delete the zip files and save space run 'wrangling/delete_zip.py'
+
+### Cleaning through multiprocessing
+Ride data
++ These are huge file over 6 GB. So multiprocessing speeds up the process
++ Run cleaning/ride_clean.py to start cleaning
++ Below is a screenshot of Task Manager while tasks are executed
+![tasks](https://user-images.githubusercontent.com/30205620/28745103-fb24b912-743e-11e7-8b11-fd233a840519.PNG)
+
++ This took 8455 seconds which is __2 hours 20 minutes__ on __4 core intel i5, 4GB RAM__
