@@ -35,3 +35,21 @@ Ride data
 ![tasks](https://user-images.githubusercontent.com/30205620/28745103-fb24b912-743e-11e7-8b11-fd233a840519.PNG)
 
 + This took 8455 seconds which is __2 hours 20 minutes__ on __4 core intel i5, 4GB RAM__
+
+Weather data
++ On bash run the following command to install csvkit
+```Shell
+$sudo apt install csvkit
+```
++ To list the columns
+```Shell
+$csvcut -n filename.csv
+```
++ To get stats of a column, say 4. Check for outliers
+```Shell
+$csvcut -c 4 filename.csv | csvstat
+```
++ To extract needed columns, say 3,4,5
+```Shell
+$csvcut -c 3,4,5 filename.csv > output_file.csv
+```
