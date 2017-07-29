@@ -9,18 +9,18 @@
 + csvkit for bash
 
 ## Download Data
-### Ride data
+##### Ride data
 + https://s3.amazonaws.com/tripdata/index.html has multiple data sets from 2013 to present
 + More information about these datasets can be found <a href="https://www.citibikenyc.com/system-data">here</a>
 
-### Weather data
+##### Weather data
 + https://www.ncdc.noaa.gov/cdo-web/datasets/GHCND/stations/GHCND:USW00094728/detail
 + Documentation is present on the left side bar of same page
 
-### Google Maps Distance matrix API 
+##### Google Maps Distance matrix API 
 Google maps distance matrix API is used to compare transit times for rides, Google estimate vs actual.
 
-### Automate download, extract and delete zip files
+##### Automate download, extract and delete zip files
 + To automate the download, run 'wrangling/download.py'. <br>
 + I have used selenium, BeautifulSoup, <a href="http://phantomjs.org/download.html">phantomjs</a> to download Ride data,as the web page was dynamic.
 
@@ -30,7 +30,7 @@ Google maps distance matrix API is used to compare transit times for rides, Goog
 + To delete the zip files and save space run 'wrangling/delete_zip.py'
 
 ## Cleaning through multiprocessing
-### Ride data
+##### Ride data
 + These are huge file over 6 GB. So multiprocessing speeds up the process
 + Run cleaning/ride_clean.py to start cleaning
 + Below is a screenshot of Task Manager while tasks are executed
@@ -38,7 +38,7 @@ Google maps distance matrix API is used to compare transit times for rides, Goog
 
 + This took 8455 seconds which is __2 hours 20 minutes__ on __4 core intel i5, 4GB RAM__
 
-### Weather data
+##### Weather data
 + On bash run the following command to install csvkit
 ```Shell
 $sudo apt install csvkit
