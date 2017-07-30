@@ -21,13 +21,13 @@
 Google maps distance matrix API is used to compare transit times for rides, Google estimate vs actual.
 
 ##### Automate download, extract and delete zip files
-+ To automate the download, run 'wrangling/download.py'. <br>
++ To automate the download, run 'download/download.py'. <br>
 + I have used selenium, BeautifulSoup, <a href="http://phantomjs.org/download.html">phantomjs</a> to download Ride data,as the web page was dynamic.
 
-+ Run 'wrangling/extract.py' which extracts the zip files. I have written this program because some zip files are having repeated files inside them. I have used a dictionary of file names after extracting each zip file`s children and check if the child already exists before extracting other zip file. ZipFile module provides namelist() which can be used to check files inside a zip file before extracting it.<br>
++ Run 'download/extract.py' which extracts the zip files. I have written this program because some zip files are having repeated files inside them. I have used a dictionary of file names after extracting each zip file`s children and check if the child already exists before extracting other zip file. ZipFile module provides namelist() which can be used to check files inside a zip file before extracting it.<br>
 + The dictionary is saved to a json file and used while running download.py repeatedly to avoid downloading files that are already downloaded before
 
-+ To delete the zip files and save space run 'wrangling/delete_zip.py'
++ To delete the zip files and save space run 'download/delete_zip.py'
 
 ## Cleaning through multiprocessing
 ##### Ride data
