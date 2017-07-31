@@ -12,5 +12,5 @@ data = data.drop(["capacity", "rental_methods", "short_name", "eightd_has_key_di
 data = data.set_index('station_id')
 
 # write to file
-path = input("Enter path:")
+path = input("Enter path with forward slashes inside it:")
 data.to_csv(path + "/station_info.csv")
