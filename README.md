@@ -17,6 +17,9 @@
 + https://www.ncdc.noaa.gov/cdo-web/datasets/GHCND/stations/GHCND:USW00094728/detail
 + Documentation is present on the left side bar of same page
 
+##### Bike stations info
++ Run download/station_info.py to get the station info from citibike API
+
 ##### Google Maps Distance matrix API 
 Google maps distance matrix API is used to compare transit times for rides, Google estimate vs actual.
 
