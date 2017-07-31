@@ -12,4 +12,5 @@ data = data.drop(["capacity", "rental_methods", "short_name", "eightd_has_key_di
 data = data.set_index('station_id')
 
 # write to file
-data.to_csv('C:/Users/Naveen/Downloads/Springboard/GitHub/new_york_citibikes/data/station_info.csv')
+path = input("Enter path:")
+data.to_csv(path + "/station_info.csv")
