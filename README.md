@@ -20,6 +20,9 @@
 ##### Bike stations info
 + Run download/station_info.py to get the station info from citibike API
 
+##### Bike stations status
++ Run download/station_info.py to get each station status info from citibike API. It provides number of bikes available, number of docks available, is the station running,etc.
+
 ##### Google Maps Distance matrix API 
 Code to get the transit times from one station to other based on station latitudes and longitudes is in download/transit_time.py. Google cloud API key is required in order to get the data.
 
