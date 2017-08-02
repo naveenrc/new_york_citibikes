@@ -21,7 +21,7 @@
 + Run download/station_info.py to get the station info from citibike API
 
 ##### Bike stations status
-+ Run download/station_info.py to get each station status info from citibike API. It provides number of bikes available, number of docks available, is the station running,etc.
++ Run download/station_status.py to get each station status info from citibike API. It provides number of bikes available, number of docks available, is the station running,etc.
 
 ##### Google Maps Distance matrix API 
 Code to get the transit times from one station to other based on station latitudes and longitudes is in download/transit_time.py. Google cloud API key is required in order to get the data.
@@ -37,7 +37,7 @@ Code to get the transit times from one station to other based on station latitud
 
 ## Cleaning through multiprocessing
 ##### Ride data
-+ These are huge file over 6 GB. So multiprocessing speeds up the process
++ These are huge files over 6 GB. So multiprocessing speeds up the process
 + Run cleaning/ride_clean.py to start cleaning
 + Below is a screenshot of Task Manager while tasks are executed
 ![tasks](https://user-images.githubusercontent.com/30205620/28745103-fb24b912-743e-11e7-8b11-fd233a840519.PNG)
@@ -61,5 +61,5 @@ $csvcut -c 4 filename.csv | csvstat
 ```Shell
 $csvcut -c 3,4,5 filename.csv > output_file.csv
 ```
-##### Clean transit times from Google
+##### Clean transit times from Google(Multiprocessing)
 + Data is duplicated in this file. So, running cleaning/clean_transit.py cleans the file.
