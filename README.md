@@ -21,7 +21,7 @@
 + Run download/station_info.py to get the station info from citibike API
 
 ##### Google Maps Distance matrix API 
-Google maps distance matrix API is used to compare transit times for rides, Google estimate vs actual.
+Code to get the transit times from one station to other based on station latitudes and longitudes is in download/transit_time.py. Google cloud API key is required in order to get the data.
 
 ##### Automate download, extract and delete zip files
 + To automate the download, run 'download/download.py'. <br>
@@ -58,3 +58,5 @@ $csvcut -c 4 filename.csv | csvstat
 ```Shell
 $csvcut -c 3,4,5 filename.csv > output_file.csv
 ```
+##### Clean transit times from Google
++ Data is duplicated in this file. So, running cleaning/clean_transit.py cleans the file.
