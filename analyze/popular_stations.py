@@ -1,11 +1,5 @@
 import os
 import pandas as pd
-from nyctile import nyc_map
-from plot_stations import mercator_df
-from bokeh.io import show
-from bokeh.layouts import column
-from bokeh.models import CustomJS, ColumnDataSource, Slider, HoverTool
-from bokeh.models.glyphs import Circle, Text
 import time
 from multiprocessing import Pool, Lock
 import sys
