@@ -24,7 +24,12 @@ def ridesbygender(file):
         try:
             output = pd.read_csv(os.path.join(curdir, '../data/rides') + '/rides_count.csv')
             output.set_index('start_time',inplace=True)
-            output = pd.concat([output,df2])
+            start_index = df2.index.values[0]
+            end_index = df2.index.values[-1]
+            if start_index in output.index.values:
+                output.loc[start_index:end_index, :] = output.loc[start_index:end_index,:].combine(df2,func=lambda a, b: a + b,fill_value=0)
+            else:
+                output = pd.concat([output,df2])
             output.to_csv(os.path.join(curdir, '../data/rides') + '/rides_count.csv')
         except pd.errors.EmptyDataError:
             df2.to_csv(os.path.join(curdir, '../data/rides') + '/rides_count.csv')
