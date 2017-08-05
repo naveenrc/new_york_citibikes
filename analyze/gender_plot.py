@@ -17,7 +17,6 @@ df['total_rides'] = df['male_rides']+df['female_rides']+df['un_rides']
 df['duration'] = df['duration']/3600
 source = plt.ColumnDataSource(df)
 
-circle1 = Circle()
 hover1 = HoverTool(tooltips=[
     ("male distance", "@male_dist{int}"),
     ("female distance", "@female_dist{int}"),
