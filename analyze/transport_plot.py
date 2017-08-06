@@ -11,7 +11,6 @@ output = pd.read_csv(os.path.join(curdir, '../data/rides') + '/transported.csv')
 output['date'] = pd.DatetimeIndex(output['date']).normalize()
 output.set_index('date',inplace=True)
 output = output.groupby('date').agg('sum')
-print(output)
 
 source = plt.ColumnDataSource(output)
 
