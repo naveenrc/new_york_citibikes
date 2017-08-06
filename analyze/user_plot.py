@@ -1,9 +1,8 @@
 import os
 import pandas as pd
-from bokeh.models import HoverTool, Circle
+from bokeh.models import HoverTool
 import bokeh.plotting as plt
 from bokeh.io import show
-from bokeh.layouts import gridplot
 from bokeh.palettes import Blues4
 
 
