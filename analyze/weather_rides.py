@@ -6,6 +6,8 @@ from bokeh.io import show
 from bokeh.layouts import gridplot
 from bokeh.palettes import Blues4
 
+# compare rides with weather snow fall, rain, temperature, snow depth
+
 def plot(df,xval,yval,title,hoverx,hovery,labelx,labely):
     source = plt.ColumnDataSource(df)
 

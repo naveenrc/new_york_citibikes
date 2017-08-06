@@ -4,7 +4,7 @@ import time
 from multiprocessing import Pool, Lock
 import sys
 
-
+# calculate rides by user type 'Subscriber' and 'Pay per use'
 def ridesbyuser(file):
     # get file
     curdir = os.path.dirname(__file__)

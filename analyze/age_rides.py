@@ -5,22 +5,26 @@ from multiprocessing import Pool, Lock
 import sys
 import numpy as np
 
-
+#calculate number of rides by age
 def ridesbyage(file):
     # get file
     curdir = os.path.dirname(__file__)
     df_birth = pd.read_csv(os.path.join(curdir, '../data/rides') + '/'+file)
+    #check if user is subscriber because customer birth is not present
     df_birth = df_birth[df_birth['user']=='Subscriber']
     df_birth['birth'] = pd.to_numeric(df_birth['birth'],errors='ignore').fillna(0)
     df_birth['birth'].replace('\\N',0,inplace=True)
     df_birth['birth'] = df_birth['birth'].astype(np.int64)
     df_birth = df_birth[df_birth['birth']>=1957]
+    #calculate age
     df_birth['age'] = 2017-df_birth['birth']
+    #group by age and count to get number of rides by age
     rides = df_birth.groupby(['age'])['bike_id'].agg(['count']).unstack()['count']
+    #convert resulting series to dataframe
     rides_df = pd.DataFrame({'age':rides.index,'rides':rides.values})
     rides_df.set_index('age',inplace=True)
 
-
+    #store result in a file protected by lock
     with lock:
         try:
             output = pd.read_csv(os.path.join(curdir, '../data/rides') + '/rides_age.csv')
@@ -43,6 +47,7 @@ if __name__ == '__main__':
     f = open(os.path.join(curdir, '../data/rides') + '/rides_age.csv','w')
     f.close()
 
+    #multiprocessing
     t = time.time()
     lock = Lock()
     p = Pool(4, initializer=init_child, initargs=(lock,))

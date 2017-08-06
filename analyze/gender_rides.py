@@ -4,22 +4,24 @@ import time
 from multiprocessing import Pool, Lock
 import sys
 
-
+# calculate rides by gender
 def ridesbygender(file):
     # get file
     curdir = os.path.dirname(__file__)
     df = pd.read_csv(os.path.join(curdir, '../data/rides') + '/'+file)
 
-    # get start and end times of rides value counts, this is going to be popularity of stations
     df['start_time'] = pd.to_datetime(df['start_time'])
     df['distance'] = df['trip_duration'].map(lambda x: (7.456*x)/3600 if x < 7200 else 14.9)
     df['start_time'] = pd.DatetimeIndex(df['start_time']).normalize()
     df.set_index('start_time',inplace=True)
     df1 = df.groupby(['start_time','gender'])['distance'].agg(['count','sum']).unstack()
+    # number of rides by gender 0:unknown, 1:male, 2:female
     df2 = df1['count'].rename(columns={0:'un_rides',1:'male_rides',2:'female_rides'}).fillna(0)
+    # distance travelled by gender
     df2 = df2.join(df1['sum'].rename(columns={0:'un_dist',1:'male_dist',2:'female_dist'}))
     df2['duration'] = df.groupby(['start_time'])['trip_duration'].agg(['sum']).unstack()['sum']
 
+    # store result to a file protected by lock
     with lock:
         try:
             output = pd.read_csv(os.path.join(curdir, '../data/rides') + '/rides_count.csv')
