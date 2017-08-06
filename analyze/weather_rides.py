@@ -54,9 +54,9 @@ snow_df = pd.DataFrame(dict(index=snow.index,values=snow.values)).set_index('ind
 rain = final.groupby('PRCP')['total_rides'].agg('sum')
 rain_df = pd.DataFrame(dict(index=rain.index,values=rain.values)).set_index('index')
 
-temp = final.groupby('TAVG')['total_rides'].agg('sum')
+temp = final.groupby('TMAX')['total_rides'].agg('sum')
 temp_df = pd.DataFrame(dict(index=temp.index,values=temp.values)).set_index('index')
-
+print(temp_df)
 snow_d = final.groupby('SNWD')['total_rides'].agg('sum')
 snow_d_df = pd.DataFrame(dict(index=snow_d.index,values=snow_d.values)).set_index('index')
 

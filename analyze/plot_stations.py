@@ -19,8 +19,7 @@ def mercator_df():
 
 if __name__ == '__main__':
     df = mercator_df()
-    fig = nyc_map()
-
+    fig = nyc_map('Citi bike stations in Jersey city and New york city')
     # colors for Jersey city and NYC regions
     fill_color = { 70: 'blue', 71: 'firebrick'}
     line_color = { 70: 'blue', 71: 'firebrick'}
