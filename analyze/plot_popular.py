@@ -3,19 +3,26 @@ import pandas as pd
 from nyctile import nyc_map
 from bokeh.io import show
 from bokeh.layouts import column
-from bokeh.models import CustomJS, ColumnDataSource, Slider, HoverTool
+from bokeh.models import CustomJS, ColumnDataSource, Slider, HoverTool, Label
 from bokeh.models.glyphs import Circle, Text
 
 
 curdir = os.path.dirname(__file__)
 df = pd.read_csv(os.path.join(curdir, '../data/rides') + '/stationdf.csv')
 # setup basic map
-fig = nyc_map('Popular Stations from 2013-07 to 2017-03, hover to know bikes in/out at that station')
-
+fig = nyc_map('Popular Stations from 2013-07 to 2017-03. Hover to know bikes in/out at that station. \
+Zoom in using mouse or box select tool from the toolbox on right')
+jc_x=df[df['station_id']==3269]['x'].values[0]
+jc_y=df[df['station_id']==3269]['y'].values[0]
+nyc_x=df[df['station_id']==519]['x'].values[0]
+nyc_y=df[df['station_id']==519]['y'].values[0]
 source = ColumnDataSource(df)
+jc = Label(text = 'Jersey', text_alpha=1,x=jc_x,y=jc_y,text_font_size='1.5em',x_offset=-50)
+nyc = Label(text = 'NYC', text_alpha=1,x=nyc_x,y=nyc_y,text_font_size='1.5em')
 region_glyph = Circle(x="x", y="y", fill_color="fill", line_color="line", size='transform', fill_alpha=0.5)
 region = fig.add_glyph(source, region_glyph)
-
+fig.add_layout(jc)
+fig.add_layout(nyc)
 # hover tooltip to display name
 tooltips = """
         <div>
