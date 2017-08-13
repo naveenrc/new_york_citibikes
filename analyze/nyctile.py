@@ -18,8 +18,8 @@ def nyc_map(title):
     # convert the ranges to web mercator format
     nyc_range = to_mercator(nyc)
     NYC = x_range, y_range = ((nyc_range.loc[0,'x'], nyc_range.loc[1,'x']), (nyc_range.loc[0,'y'], nyc_range.loc[1,'y']))
-    fig = figure(tools='pan, wheel_zoom, box_zoom, tap, reset, save', x_range=x_range, y_range=y_range, width=1000, height=600,
-                 title=title, toolbar_location="right")
+    fig = figure(tools='pan, wheel_zoom, box_zoom, tap, reset, save', x_range=x_range, y_range=y_range, width=1200, height=600,
+                 active_scroll="auto",title=title, toolbar_location="right")
     fig.axis.visible = False
     url = 'http://a.basemaps.cartocdn.com/light_all/{Z}/{X}/{Y}.png'
     attribution = "Naveen Ch"

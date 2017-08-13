@@ -17,22 +17,17 @@ df['total_rides'] = df['male_rides']+df['female_rides']+df['un_rides']
 df['duration'] = df['duration']/3600
 source = plt.ColumnDataSource(df)
 
-hover1 = HoverTool(tooltips=[
-    ("male distance", "@male_dist{int}"),
-    ("female distance", "@female_dist{int}"),
-    ("unknown distance", "@un_dist{int}"),
-    ("Total Distance", "@total_distance{int} in miles")
-])
+
 plot = plt.figure(
     width=500, height=500,
     x_axis_type="datetime",
     title="Distances",
     tools="pan,wheel_zoom,box_zoom,reset",
     toolbar_location="above",
-    active_drag='box_zoom'
+    active_drag='box_zoom',
+    y_axis_type="log"
 )
-plot.add_tools(hover1)
-plot.line(
+male=plot.line(
     'start_time', 'male_dist',
     source=source,
     alpha=1, color=Blues4[0], line_width=2,
@@ -41,15 +36,35 @@ plot.line(
 plot.line(
     'start_time', 'female_dist',
     source=source,
-    alpha=0.7, color='red', line_width=2,
+    alpha=1, color='red', line_width=2,
     legend="female"
 )
 plot.line(
     'start_time', 'un_dist',
     source=source,
-    alpha=0.8, color=Blues4[2], line_width=2,
+    alpha=0.3, color=Blues4[2], line_width=2,
     legend="unknown"
 )
+plot.legend.location = "bottom_left"
+plot.yaxis.axis_label = 'Distances'
+plot.xaxis.axis_label = 'Date'
+hover1 = HoverTool(tooltips=[
+    ("male distance", "@male_dist{int}"),
+    ("female distance", "@female_dist{int}"),
+    ("unknown distance", "@un_dist{int}"),
+    ("Total Distance", "@total_distance{int} in miles"),
+    ("date","@start_time{%F}"),
+    ],
+    formatters={
+        'start_time'      : 'datetime', # use 'datetime' formatter for 'start_time' field
+    },
+    # display a tooltip whenever the cursor is vertically in line with a glyph
+    mode='vline',
+    renderers=[male]
+)
+plot.add_tools(hover1)
+
+
 plot1 = plt.figure(
     width=500, height=500,
     x_axis_type="datetime",
@@ -57,16 +72,10 @@ plot1 = plt.figure(
     tools="pan,wheel_zoom,box_zoom,reset",
     toolbar_location="above",
     x_range=plot.x_range,
-    active_drag='box_zoom'
+    active_drag='box_zoom',
+    y_axis_type="log",
 )
-hover2 = HoverTool(tooltips=[
-    ("male rides", "@male_rides{int}"),
-    ("female rides", "@female_rides{int}"),
-    ("unknown rides", "@un_rides{int}"),
-    ("Total rides", "@total_rides{int}")
-])
-plot1.add_tools(hover2)
-plot1.line(
+male = plot1.line(
     'start_time', 'male_rides',
     source=source,
     alpha=1, color=Blues4[0], line_width=2,
@@ -75,14 +84,31 @@ plot1.line(
 plot1.line(
     'start_time', 'female_rides',
     source=source,
-    alpha=0.7, color='red', line_width=2,
+    alpha=1, color='red', line_width=2,
     #legend="female"
 )
 plot1.line(
     'start_time', 'un_rides',
     source=source,
-    alpha=0.8, color=Blues4[2], line_width=2,
+    alpha=0.3, color=Blues4[2], line_width=2,
     #legend="unknown"
 )
+hover1 = HoverTool(tooltips=[
+    ("male rides", "@male_rides{int}"),
+    ("female rides", "@female_rides{int}"),
+    ("unknown rides", "@un_rides{int}"),
+    ("Total rides", "@total_rides{int}"),
+    ("date","@start_time{%F}")
+    ],
+    formatters={
+        'start_time'      : 'datetime', # use 'datetime' formatter for 'start_time' field
+    },
+    # display a tooltip whenever the cursor is vertically in line with a glyph
+    mode='vline',
+    renderers=[male]
+)
+plot1.yaxis.axis_label = 'Number of rides'
+plot1.xaxis.axis_label = 'Date'
+plot1.add_tools(hover1)
 grid = gridplot([[plot1, plot]])
 show(grid)

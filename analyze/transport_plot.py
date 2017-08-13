@@ -15,15 +15,22 @@ output = output.groupby('date').agg('sum')
 source = plt.ColumnDataSource(output)
 
 hover1 = HoverTool(tooltips=[
-    ("Transported bikes", "@count{int}")
-])
+    ("Transported bikes", "@count{int}"),
+    ("date","@date{%F}")
+    ],
+    formatters={
+        'date'      : 'datetime', # use 'datetime' formatter for 'start_time' field
+    },
+    mode='vline'
+)
 plot = plt.figure(
-    width=600, height=600,
+    width=1000, height=600,
     x_axis_type="datetime",
     title="Transported bikes by date",
     tools="pan,wheel_zoom,box_zoom,reset",
     toolbar_location="above",
-    active_drag='box_zoom'
+    active_drag='box_zoom',
+    y_axis_type="log"
 )
 plot.add_tools(hover1)
 plot.line(
@@ -32,4 +39,5 @@ plot.line(
     alpha=1, color=Blues4[0], line_width=2
 )
 plot.yaxis.axis_label = 'Number of transported bikes'
+plot.xaxis.axis_label = 'Date'
 show(plot)

@@ -38,8 +38,12 @@ def popular_stations(file):
         fill_color = {70: 'blue', 71: 'firebrick'}
         line_color = {70: 'blue', 71: 'firebrick'}
         count["fill"] = count['region_id'].map(lambda x: fill_color[x])
+        count['fill2'] = 'yellow'
         count["line"] = count['region_id'].map(lambda x: line_color[x])
-        count['transform'+str(date)] = count['count'+str(date)]/1000+3
+        max_count = count['count'+str(date)].max()
+        min_count = count['count' + str(date)].min()
+        # y = 1 + (x-A)*(10-1)/(B-A)
+        count['transform'+str(date)] = count['count'+str(date)].map(lambda x: (x-min_count)/(max_count-min_count))
         count['count']=count['count'+str(date)]
         count['transform']=count['transform'+str(date)]
         count.to_csv(os.path.join(curdir, '../data/rides') + '/stationdf.csv')

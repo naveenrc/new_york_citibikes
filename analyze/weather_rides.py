@@ -5,6 +5,7 @@ import bokeh.plotting as plt
 from bokeh.io import show
 from bokeh.layouts import gridplot
 from bokeh.palettes import Blues4
+from bokeh.models.widgets import DataTable, TableColumn
 
 # compare rides with weather snow fall, rain, temperature, snow depth
 
@@ -16,22 +17,25 @@ def plot(df,xval,yval,title,hoverx,hovery,labelx,labely):
         title=title,
         tools="pan,wheel_zoom,box_zoom,reset",
         toolbar_location="above",
-        active_drag='box_zoom'
+        active_drag='box_zoom',
+        y_axis_type="log"
     )
     plot.xaxis.axis_label = labelx
     plot.yaxis.axis_label = labely
     hover1 = HoverTool(tooltips=[
         (hoverx, "@"+xval+"{1.11}"),
         (hovery, "@"+yval+"{int}")
-    ])
+    ],
+    mode='vline'
+    )
     plot.add_tools(hover1)
     plot.circle(
         xval, yval,
         source=source,
         alpha=1, color=Blues4[1], size=10,
     )
-    yaxis = plot.select(dict(type=Axis, layout="left"))[0]
-    yaxis.formatter.use_scientific = False
+    # yaxis = plot.select(dict(type=Axis, layout="left"))[0]
+    # yaxis.formatter.use_scientific = False
     return plot
 
 
@@ -58,7 +62,7 @@ rain_df = pd.DataFrame(dict(index=rain.index,values=rain.values)).set_index('ind
 
 temp = final.groupby('TMAX')['total_rides'].agg('sum')
 temp_df = pd.DataFrame(dict(index=temp.index,values=temp.values)).set_index('index')
-print(temp_df)
+
 snow_d = final.groupby('SNWD')['total_rides'].agg('sum')
 snow_d_df = pd.DataFrame(dict(index=snow_d.index,values=snow_d.values)).set_index('index')
 
@@ -68,5 +72,17 @@ plot2 = plot(rain_df,'index','values','rain vs rides','rain:','rides:','Rain in 
 plot3 = plot(temp_df,'index','values','temperature vs rides','temperature:','rides:','Temperature','Number of rides')
 plot4 = plot(snow_d_df,'index','values','snow depth vs rides','snow depth:','rides:','Snow depth in inches','Number of rides')
 
-layout = gridplot([[plot1,plot2],[plot3,plot4]])
+
+table = {}
+table['temperature'] = ['<32','33-60','61-90','>91']
+table['rides'] = [temp_df.loc[:32]['values'].sum(),temp_df.loc[33:60]['values'].sum(),temp_df.loc[61:90]['values'].sum(),temp_df.loc[91:]['values'].sum()]
+print(table)
+source1 = plt.ColumnDataSource(table)
+columns = [
+        TableColumn(field="temperature", title="Temperature"),
+        TableColumn(field="rides", title="Number of rides"),
+    ]
+data_table = DataTable(source=source1, columns=columns, width=250, height=280)
+
+layout = gridplot([[plot1,plot2],[plot3,data_table,plot4]])
 show(layout)

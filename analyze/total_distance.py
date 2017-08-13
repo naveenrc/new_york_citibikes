@@ -18,15 +18,23 @@ df = df.groupby('start_time').agg('sum')
 source = plt.ColumnDataSource(df)
 
 hover1 = HoverTool(tooltips=[
-    ("distance", "@estimated_distance{int}")
-])
+    ("distance", "@estimated_distance{int}"),
+    ("date","@start_time{%F}")
+    ],
+    formatters={
+        'start_time'      : 'datetime', # use 'datetime' formatter for 'start_time' field
+    },
+    # display a tooltip whenever the cursor is vertically in line with a glyph
+    mode='vline'
+)
 plot = plt.figure(
     width=1000, height=570,
     x_axis_type="datetime",
     title="Estimated total distance travelled",
     tools="pan,wheel_zoom,box_zoom,reset",
     toolbar_location="above",
-    active_drag='box_zoom'
+    active_drag='box_zoom',
+    y_axis_type="log"
 )
 plot.add_tools(hover1)
 plot.line(
@@ -35,8 +43,7 @@ plot.line(
     alpha=1, color=Blues4[0], line_width=2
 )
 plot.yaxis.axis_label = 'Distance Travelled'
-yaxis = plot.select(dict(type=Axis, layout="left"))[0]
-yaxis.formatter.use_scientific = False
+plot.xaxis.axis_label = 'Date'
 
 total_distance = sum(df['estimated_distance'])
 earth = 24901
