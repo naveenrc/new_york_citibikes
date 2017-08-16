@@ -96,7 +96,7 @@ def init_child(lock_):
 
 if __name__ == '__main__':
     curdir = os.path.dirname(__file__)
-    '''
+
     df = pd.read_csv(os.path.join(curdir, '../data/rides') + '/cleaned_files.csv', header=None)
     files = df[0].tolist()
     f = open(os.path.join(curdir, '../data/rides') + '/transported_hour.csv', 'w')
@@ -113,5 +113,5 @@ if __name__ == '__main__':
     print("\nCompleted in.....", time.time() - t)
 
     groups_year()
-    '''
+
     data()
