@@ -14,10 +14,14 @@ data.index.names = ['Date']
 series = data['total']
 dataset = series.values
 
+# test data size
 test_split = -200
+# window size to take into account for predicting next step
 look_back = 10
+# neural network 2 layers size
 first_layer = 12
 sec_layer = 6
+# iterations
 epochs = 12
 
 train_predict, test_predict = model_base(dataset, test_split, first_layer, sec_layer, epochs, look_back)

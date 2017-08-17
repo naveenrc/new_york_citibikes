@@ -9,15 +9,19 @@ cwd = os.getcwd()
 data = pandas.read_csv(os.path.join('../data/rides/')+'transported_hour_data.csv', usecols=[0, 1, 2],
                        parse_dates=[1], infer_datetime_format=True, index_col=1)
 data.index.names = ['Date']
-trans519 = data[data['station'] == 519]['count']
-series = trans519.resample('240Min').sum()
+trans = data[data['station'] == int(input('Enter station number: '))]['count']
+series = trans.resample('240Min').sum()
 series.fillna(0, inplace=True)
 dataset = series.values
 
+# test data size
 test_split = -72
+# window size to take into account for predicting next step
 look_back = 6
+# neural network 2 layers size
 first_layer = 12
 sec_layer = 8
+# iterations
 epochs = 7
 
 train_predict, test_predict = model_base(dataset, test_split, first_layer, sec_layer, epochs, look_back)
