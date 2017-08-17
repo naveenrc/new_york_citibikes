@@ -2,6 +2,10 @@
 ![image](https://user-images.githubusercontent.com/30205620/28938575-75619846-785c-11e7-993c-751d7844583c.png)
 ## Requirements
 + Python 3.5+
++ Keras
++ Bokeh
++ Pandas
++ Numpy
 + Selenium
 + BeautifulSoup
 + Phanomjs http://phantomjs.org/download.html
@@ -87,5 +91,14 @@ $csvcut -c 3,4,5 filename.csv > output_file.csv
 ##### Comparing with google
 + Citi bike provided that the average speed is 7.456 miles/hour
 + Transit times obtained in download section are used to calculate the average speed across all stations. Then it is used to compare with citi bike speed.
+
+##### Time Series Analysis
++ Analysis on seasonality, trend and residuals is included in TimeSeriesAnalysis.ipynb notebook.
++ It also has forecasting using ARIMA model, spectral analysis.
+
+## Prediction
+##### Daily rides
++ To predict daily rides estimate run prediction_models/daily_rides.py
++ To predict number of bikes to be transported to a station run prediction_models/station.py
 
 The report for this project can be found here https://naveenrc.github.io/citibikenyc/
