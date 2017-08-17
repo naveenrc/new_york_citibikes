@@ -1,0 +1,48 @@
+import numpy
+import pylab as plt
+import pandas
+import os
+import math
+from model import model_base
+
+cwd = os.getcwd()
+data = pandas.read_csv(os.path.join('../data/rides/')+'rides_count.csv', usecols=[0, 1, 2, 3],
+                       parse_dates=[0], infer_datetime_format=True, index_col=0)
+data = data.groupby(data.index).agg('sum')
+data['total'] = data['un_rides']+data['male_rides']+data['female_rides']
+data.index.names = ['Date']
+series = data['total']
+dataset = series.values
+
+test_split = -200
+look_back = 10
+first_layer = 12
+sec_layer = 6
+epochs = 12
+
+train_predict, test_predict = model_base(dataset, test_split, first_layer, sec_layer, epochs, look_back)
+
+plt.plot(dataset, label='Actual')
+plt.plot(train_predict, label='Train prediction')
+plt.plot(test_predict, label='Test prediction')
+plt.legend(loc='upper left')
+plt.title('Train and test prediction')
+plt.xlabel('Day')
+plt.ylabel('Rides')
+plt.show()
+
+ratios = numpy.divide(dataset, test_predict)
+plt.plot(ratios)
+plt.title('Ratio between actual and test predictions')
+plt.show()
+
+ratios = numpy.array([value for value in ratios if not math.isnan(value)])
+se = numpy.std(ratios)
+ci = numpy.percentile(ratios, [5, 95])
+acc = numpy.where((ratios>=ci[0]) & (ratios<=ci[1]))
+accuracy = len(acc[0])/len(ratios) * 100
+plt.hist(ratios, bins=10)
+plt.title('Confidence interval:' + str(ci) + ', Standard deviation: ' + str(se) + ', Accuracy:' + str(accuracy))
+plt.xlabel('Ratio between actual and test predictions')
+plt.ylabel('Frequency')
+plt.show()
