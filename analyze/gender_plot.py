@@ -42,7 +42,7 @@ plot.line(
 plot.line(
     'start_time', 'un_dist',
     source=source,
-    alpha=0.3, color=Blues4[2], line_width=2,
+    alpha=0.3, color='orange', line_width=2,
     legend="unknown"
 )
 plot.legend.location = "bottom_left"
@@ -90,7 +90,7 @@ plot1.line(
 plot1.line(
     'start_time', 'un_rides',
     source=source,
-    alpha=0.3, color=Blues4[2], line_width=2,
+    alpha=0.3, color='orange', line_width=2,
     #legend="unknown"
 )
 hover1 = HoverTool(tooltips=[

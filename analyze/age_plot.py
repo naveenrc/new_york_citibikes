@@ -13,8 +13,10 @@ df = pd.read_csv(os.path.join(curdir, '../data/rides') + '/rides_age.csv')
 # setup basic map
 df = df.groupby('age').agg('sum')
 table = {}
-table['ages'] = ['16-26','27-39','40-60']
-table['rides'] = [df.loc[16:26]['rides'].sum(),df.loc[27:39]['rides'].sum(),df.loc[40:60]['rides'].sum()]
+table['ages'] = ['16-26', '27-39', '40-60']
+table['rides'] = [df.loc[16:26]['rides'].sum(), df.loc[27:39]['rides'].sum(), df.loc[40:60]['rides'].sum()]
+table['compare'] = [df.loc[27:39]['rides'].sum()/df.loc[16:26]['rides'].sum(), df.loc[27:39]['rides'].sum()/df.loc[27:39]['rides'].sum(),
+                    df.loc[27:39]['rides'].sum()/df.loc[40:60]['rides'].sum()]
 print(table)
 
 source1 = plt.ColumnDataSource(table)
@@ -27,7 +29,7 @@ hover1 = HoverTool(tooltips=[
     mode='vline'
 )
 plot = plt.figure(
-    width=1000, height=600,
+    width=850, height=600,
     title="Rides by user age",
     tools="pan,wheel_zoom,box_zoom,reset",
     toolbar_location="above",
@@ -48,7 +50,8 @@ plot.yaxis.axis_label = 'Number of rides'
 columns = [
         TableColumn(field="ages", title="Age group"),
         TableColumn(field="rides", title="Number of rides"),
+        TableColumn(field='compare', title='Compare with 27-39')
     ]
-data_table = DataTable(source=source1, columns=columns, width=250, height=280)
-layout = gridplot([[plot,data_table]])
+data_table = DataTable(source=source1, columns=columns, width=400, height=280)
+layout = gridplot([[plot, data_table]])
 show(layout)
