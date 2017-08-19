@@ -17,7 +17,7 @@ def create_dataset(dataset, look_back=1):
     return numpy.array(dataX), numpy.array(dataY)
 
 
-def model_base(dataset, idx, first_layer, sec_layer, epochs, look_back = 1):
+def model_base(dataset, idx, first_layer, sec_layer, epochs, look_back=1):
     train, test = dataset[0:idx], dataset[idx:]
     print(len(train), len(test))
     # convert an array of values into a dataset matrix

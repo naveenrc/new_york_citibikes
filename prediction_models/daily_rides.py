@@ -15,16 +15,16 @@ series = data['total']
 dataset = series.values
 
 # test data size
-test_split = -200
+test_split = -400
 # window size to take into account for predicting next step
-look_back = 10
+look_back = 3
 # neural network 2 layers size
 first_layer = 12
-sec_layer = 6
+sec_layer = 8
 # iterations
 epochs = 12
 
-train_predict, test_predict = model_base(dataset, test_split, first_layer, sec_layer, epochs, look_back)
+train_predict, test_predict = model_base(dataset, test_split, first_layer, sec_layer, epochs, look_back=look_back)
 
 plt.plot(dataset, label='Actual')
 plt.plot(train_predict, label='Train prediction')
@@ -42,11 +42,20 @@ plt.show()
 
 ratios = numpy.array([value for value in ratios if not math.isnan(value)])
 se = numpy.std(ratios)
-ci = numpy.percentile(ratios, [5, 95])
+ci = numpy.percentile(ratios, [34, 68])
 acc = numpy.where((ratios>=ci[0]) & (ratios<=ci[1]))
 accuracy = len(acc[0])/len(ratios) * 100
-plt.hist(ratios, bins=10)
-plt.title('Confidence interval:' + str(ci) + ', Standard deviation: ' + str(se) + ', Accuracy:' + str(accuracy))
+plt.hist(ratios, bins=20, rwidth=0.5)
+plt.title('Standard deviation: ' + str(se) +', Confidence interval:' + str(ci) + ', Accuracy:' + str(accuracy))
+plt.xlabel('Ratio between actual and test predictions')
+plt.ylabel('Frequency')
+plt.show()
+
+ci = [0.7, 1.4]
+acc = numpy.where((ratios>=ci[0]) & (ratios<=ci[1]))
+accuracy = len(acc[0])/len(ratios) * 100
+plt.hist(ratios, bins=20, rwidth=0.5)
+plt.title('Standard deviation: ' + str(se) +', Confidence interval:' + str(ci) + ', Accuracy:' + str(accuracy))
 plt.xlabel('Ratio between actual and test predictions')
 plt.ylabel('Frequency')
 plt.show()
